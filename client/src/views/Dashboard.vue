@@ -75,11 +75,10 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 import LearnCard from "@/components/LearnCard.vue";
 
 export default {
-  name: "Home",
+  name: "Dashboard",
   components: {
     LearnCard
   },
@@ -95,7 +94,15 @@ export default {
     };
   },
   computed: {
-    ...mapState(["userProfile", "courses"])
+    // ...mapState(["userProfile", "courses"])
+    userProfile() {
+      return this.$store.state.auth.user;
+    }
+  },
+  mounted() {
+    if (!this.userProfile) {
+      this.$router.push("/login");
+    }
   },
   methods: {
     handleChange(value) {

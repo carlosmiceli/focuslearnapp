@@ -1,7 +1,27 @@
-const { authJwt } = require("../middlewares");
-const controller = require("../controllers/user.controller");
+module.exports = app => {
+  const jwt = require("jsonwebtoken");
+  const config = require("../config/auth.config.js");
+  const db = require("../models");
+  const User = db.user;
+  const controller = require("../controllers/user.controller");
+  const authJwt = {};
 
-module.exports = function (app) {
+  authJwt.verifyToken = (req, res, next) => {
+    let token = req.headers["x-access-token"];
+
+    if (!token) {
+      return res.status(403).send({ message: "No token provided!" });
+    }
+
+    jwt.verify(token, config.secret, (err, decoded) => {
+      if (err) {
+        return res.status(401).send({ message: "Unauthorized!" });
+      }
+      req.userId = decoded.id;
+      next();
+    });
+  };
+
   app.use(function (req, res, next) {
     res.header(
       "Access-Control-Allow-Headers",

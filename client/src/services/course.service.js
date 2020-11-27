@@ -1,6 +1,6 @@
 import http from "../http-common";
 
-class CourseDataService {
+class CourseService {
   getAll() {
     return http.get("/courses/");
   }
@@ -14,7 +14,7 @@ class CourseDataService {
   }
 
   create(data) {
-    return http.post("/courses", data);
+    return http.post("/courses/", data);
   }
 
   update(id, data) {
@@ -30,4 +30,4 @@ class CourseDataService {
   }
 }
 
-export default new CourseDataService();
+export default new CourseService();

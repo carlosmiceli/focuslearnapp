@@ -7,7 +7,7 @@
         </router-link>
         <ul class="inline">
           <li>
-            <router-link to="/">Home</router-link>
+            <router-link to="/dashboard">Dashboard</router-link>
           </li>
           <li>
             <router-link to="/settings">Settings</router-link>
@@ -23,7 +23,8 @@
 export default {
   methods: {
     logout() {
-      this.$store.dispatch("logout");
+      this.$store.dispatch("auth/logout");
+      this.$router.push("/login");
     }
   }
 };

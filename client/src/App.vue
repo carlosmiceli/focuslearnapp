@@ -6,7 +6,6 @@
 </template>
 
 <script>
-// import { mapState } from "vuex";
 import SiteNav from "@/components/SiteNav";
 
 export default {
@@ -14,14 +13,8 @@ export default {
     SiteNav
   },
   computed: {
-    ...mapState(["userProfile"]),
-    // userProfile() {
-    //   return this.$store.state.userProfile
-    // },
-    // CREAR CONDICIONAL PARA VER NAV SOLO DESPUES DE LOG IN
     showNav() {
-      return true;
-      // return Object.keys(this.userProfile).length > 1;
+      return this.$store.state.auth.user;
     }
   }
 };
